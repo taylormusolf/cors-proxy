@@ -22,6 +22,6 @@ app.get('/', async (req, res)=>{
     }
 });
 
-app.listen(5001, ()=> {
+app.listen(process.env.PORT || 5001, ()=> {
     console.log('Listening on port 5001 ....')
 })
