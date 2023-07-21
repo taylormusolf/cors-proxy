@@ -1,4 +1,3 @@
 import sys
-
-print({'happy': 'thing', 'number': 2})
+print({'var1': sys.argv[1], 'number': 1})
 sys.stdout.flush()
