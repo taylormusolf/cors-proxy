@@ -1,6 +1,6 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
-tx = YouTubeTranscriptApi.get_transcript('Kw51fkRiKZU', languages=['en'])
+tx = YouTubeTranscriptApi.get_transcript(sys.argv[1], languages=['en'])
 outls = []
 for i in tx:
     outtxt = (i['text'])
