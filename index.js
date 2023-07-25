@@ -4,6 +4,8 @@ const axios = require('axios');
 
 const { Configuration, OpenAIApi } = require("openai");
 
+const extract = require('./runTranscripter.js');
+
 if(process.env.NODE_ENV === 'development'){
     const dotenv = require('dotenv');
     dotenv.config();
