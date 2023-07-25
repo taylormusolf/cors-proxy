@@ -34,7 +34,7 @@ app.get('/python/', (req, res) => {
     });
     runPy.then(function(fromRunpy) {
         res.end(fromRunpy);
-    }).catch(err => console.log(err));
+    }).catch(err => console.log(err.toString()));
 })
 
 
