@@ -59,6 +59,20 @@ app.post('/chat', async (req, res)=>{
 
 });
 
+//Nico's route
+app.get('/transcript/:videoId', (req, res) => {
+    const videoId = req.params.videoId;
+  
+    extract(videoId)
+      .then(script => {
+        res.send(script);
+    })
+    .catch(err => {
+        console.error('Error: ', err);
+        res.status(500).send('Error retrieving transcript');
+    });
+});
+
 // to bypass CORS
 app.get('/', async (req, res)=>{
 
@@ -72,6 +86,8 @@ app.get('/', async (req, res)=>{
         res.send('Please provide a url query param')
     }
 });
+
+
 
 
 
