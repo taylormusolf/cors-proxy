@@ -17,12 +17,27 @@ app.use(cors());
 //python setup
 
 
+//Nico's route
+// app.get('/transcript/:videoId', (req, res) => {
+//     const videoId = req.params.videoId;
+  
+//     extract(videoId)
+//       .then(script => {
+//         res.send(script);
+//     })
+//     .catch(err => {
+//         console.error('Error: ', err);
+//         res.status(500).send('Error retrieving transcript');
+//     });
+// });
 
-app.get('/python/', (req, res) => {
+
+
+app.get('/transcript/:id', (req, res) => {
     let runPy = new Promise(function(success, nosuccess) {
-
+        const id = req.params.id;
         const { spawn } = require('child_process');
-        const pyprog = spawn('python3', ['./python.py', 'Kw51fkRiKZU']) ;
+        const pyprog = spawn('python3', ['./python.py', id]) ;
 
         pyprog.stdout.on('data', function(data) {
 
@@ -61,19 +76,6 @@ app.post('/chat', async (req, res)=>{
 
 });
 
-//Nico's route
-app.get('/transcript/:videoId', (req, res) => {
-    const videoId = req.params.videoId;
-  
-    extract(videoId)
-      .then(script => {
-        res.send(script);
-    })
-    .catch(err => {
-        console.error('Error: ', err);
-        res.status(500).send('Error retrieving transcript');
-    });
-});
 
 // to bypass CORS
 app.get('/', async (req, res)=>{
