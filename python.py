@@ -1,3 +1,5 @@
 import sys
-print({'var1': sys.argv[1], 'number': 1})
+# print(sys.argv[1])
+print({'hello': sys.argv[1]}) #additional args are accessed via sys.argv
+# print('hello')
 sys.stdout.flush()

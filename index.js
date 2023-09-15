@@ -13,14 +13,13 @@ const app = express();
 app.use(cors());
 
 //python setup
-
-
+//https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
 
 app.get('/python/', (req, res) => {
     let runPy = new Promise(function(success, nosuccess) {
 
         const { spawn } = require('child_process');
-        const pyprog = spawn('python3', ['./python.py'], 'banana');
+        const pyprog = spawn('python3', ['./python.py', 'banana']); //can pass in additional args
 
         pyprog.stdout.on('data', function(data) {
 
@@ -76,5 +75,5 @@ app.get('/', async (req, res)=>{
 
 
 app.listen(process.env.PORT || 5002, ()=> {
-    console.log('Listening on port 5001 ....')
+    console.log('Listening on port 5002 ....')
 })
