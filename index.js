@@ -4,6 +4,8 @@ const axios = require('axios');
 
 const { Configuration, OpenAIApi } = require("openai");
 
+const extract = require('./runTranscripter.js');
+
 if(process.env.NODE_ENV === 'development'){
     const dotenv = require('dotenv');
     dotenv.config();
@@ -15,11 +17,28 @@ app.use(cors());
 //python setup
 //https://stackoverflow.com/questions/23450534/how-to-call-a-python-function-from-node-js
 
-app.get('/python/', (req, res) => {
-    let runPy = new Promise(function(success, nosuccess) {
 
+//Nico's route
+// app.get('/transcript/:videoId', (req, res) => {
+//     const videoId = req.params.videoId;
+  
+//     extract(videoId)
+//       .then(script => {
+//         res.send(script);
+//     })
+//     .catch(err => {
+//         console.error('Error: ', err);
+//         res.status(500).send('Error retrieving transcript');
+//     });
+// });
+
+
+
+app.get('/transcript/:id', (req, res) => {
+    let runPy = new Promise(function(success, nosuccess) {
+        const id = req.params.id;
         const { spawn } = require('child_process');
-        const pyprog = spawn('python3', ['./python.py', 'banana']); //can pass in additional args
+        const pyprog = spawn('python3', ['./python.py', id]) ;
 
         pyprog.stdout.on('data', function(data) {
 
@@ -33,7 +52,7 @@ app.get('/python/', (req, res) => {
     });
     runPy.then(function(fromRunpy) {
         res.end(fromRunpy);
-    });
+    }).catch(err => console.log(err.toString()));
 })
 
 
@@ -58,6 +77,7 @@ app.post('/chat', async (req, res)=>{
 
 });
 
+
 // to bypass CORS
 app.get('/', async (req, res)=>{
 
@@ -71,6 +91,8 @@ app.get('/', async (req, res)=>{
         res.send('Please provide a url query param')
     }
 });
+
+
 
 
 

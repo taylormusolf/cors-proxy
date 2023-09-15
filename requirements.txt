@@ -1,0 +1,3 @@
+youtube-transcript-api
+
+#pip install -r requirements.txt
